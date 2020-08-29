@@ -1,12 +1,18 @@
 'use strict';
 
+// global functions
 var imgArray = [];
 var clicksAllowed = 25;
 var numberOfClicks = 0;
-
+var list = document.getElementById('list');
+var container = document.getElementById('container');
 var imgElOne = document.getElementById('image-one');
 var imgElTwo = document.getElementById('image-two');
 var imgElThree = document.getElementById('image-three');
+var clicksArray = [];
+var viewedArray = [];
+var nameArray = [];
+
 
 // constructor for our image objects
 function Picture(name, src) {
@@ -18,27 +24,6 @@ function Picture(name, src) {
   imgArray.push(this);
 }
 
-// lets create our "images"
-new Picture('R2D2-bag', './img/bag.jpg');
-new Picture('banana-slicer', './img/banana.jpg');
-new Picture('hold-your-tablet-in-the-toliet', './img/bathroom.jpg');
-new Picture('boots', './img/boots.jpg');
-new Picture('breakfast-maker-machine', './img/breakfast.jpg');
-new Picture('meatball-gum-bubblegum', './img/bubblegum.jpg');
-new Picture('cthulhu', './img/cthulhu.jpg');
-new Picture('chair', './img/chair.jpg');
-new Picture('dog-duck', './img/dog-duck.jpg');
-new Picture('dragon-meat', './img/dragon.jpg');
-new Picture('pen', './img/pen.jpg');
-new Picture('pet-sweeper', './img/pet-sweep.jpg');
-new Picture('scissors', './img/scissors.jpg');
-new Picture('shark-sleeping-bag', './img/shark.jpg');
-new Picture('baby-sweeper', './img/sweep.jpg');
-new Picture('tauntaun-sleeping-bag', './img/tauntaun.jpg');
-new Picture('unicorn-meat', './img/unicorn.jpg');
-new Picture('tentacle-usb', './img/usb.gif');
-new Picture('water-can', './img/water-can.jpg');
-new Picture('wine-glass', './img/wine-glass.jpg');
 
 
 function renderImages() {
@@ -70,37 +55,195 @@ function renderImages() {
   imgTwo.viewed++;
   imgThree.viewed++;
 
-  //console.log(imgArray);
-
 }
-
 function randomNumber(max) {
   return Math.floor(Math.random() * max); // excludes 7
 }
+function renderChart() {
+  for (var i = 0; i < imgArray.length; i++){
+    clicksArray.push(imgArray[i].clicked);
+    viewedArray.push(imgArray[i].viewed);
+    nameArray.push(imgArray[i].name);
+  }
+  var ctx = document.getElementById('myChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: nameArray,
+      datasets: [{
+        label: '# of Votes',
+        data: clicksArray,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(42, 90, 132, 0.2)',
+          'rgba(54, 77, 235, 0.2)',
+          'rgba(255, 150, 132, 0.2)',
+          'rgba(54, 162, 159, 0.2)',
+          'rgba(200, 206, 86, 0.2)',
+          'rgba(125, 192, 192, 0.2)',
+          'rgba(153, 102, 124, 0.2)',
+          'rgba(160, 159, 64, 0.2)',
+          'rgba(255, 200, 132, 0.2)',
+          'rgba(54, 77, 235, 0.2)',
+          'rgba(255, 99, 245, 0.2)',
+          'rgba(100, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 100, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(42, 90, 132, 0.2)',
+          'rgba(54, 77, 235, 0.2)',
+          'rgba(255, 150, 132, 0.2)',
+          'rgba(54, 162, 159, 0.2)',
+          'rgba(200, 206, 86, 0.2)',
+          'rgba(125, 192, 192, 0.2)',
+          'rgba(153, 102, 124, 0.2)',
+          'rgba(160, 159, 64, 0.2)',
+          'rgba(255, 200, 132, 0.2)',
+          'rgba(54, 77, 235, 0.2)',
+          'rgba(255, 99, 245, 0.2)',
+          'rgba(100, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 100, 192, 0.2)'
+        ],
+        hoverBackgroundColor: 'purple',
+        borderWidth: 2
+      }, {
+        label: '# of Views',
+        data: viewedArray,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 150, 132, 0.2)',
+          'rgba(54, 162, 159, 0.2)',
+          'rgba(200, 206, 86, 0.2)',
+          'rgba(125, 192, 192, 0.2)',
+          'rgba(153, 102, 124, 0.2)',
+          'rgba(160, 159, 64, 0.2)',
+          'rgba(255, 200, 132, 0.2)',
+          'rgba(54, 77, 235, 0.2)',
+          'rgba(255, 99, 245, 0.2)',
+          'rgba(100, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 100, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 150, 132, 0.2)',
+          'rgba(54, 162, 159, 0.2)',
+          'rgba(200, 206, 86, 0.2)',
+          'rgba(125, 192, 192, 0.2)',
+          'rgba(153, 102, 124, 0.2)',
+          'rgba(160, 159, 64, 0.2)',
+          'rgba(255, 200, 132, 0.2)',
+          'rgba(54, 77, 235, 0.2)',
+          'rgba(255, 99, 245, 0.2)',
+          'rgba(100, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 100, 192, 0.2)'
+        ],
+        hoverBackgroundColor: 'orange',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      responsive: false,
+    }
+  });
+}
 
 
+//var myChart = new Chart(ctx, chartObject); //eslint-disable-line
 
-function eventHandler(e) {
-  // TODO:  Increase our 'viewed' property based on clicking an image
-  // console.log(e);
-  console.log(e.target.alt);
-  numberOfClicks++;
+
+// render list
+function renderList() {
   for (var i = 0; i < imgArray.length; i++) {
-    if (imgArray[i].name === e.target.alt) {
+    var liEl = document.createElement('li');
+    liEl.textContent = `${imgArray[i].name} product had ${imgArray[i].clicked} votes and was shown ${imgArray[i].viewed} times`;
+    list.appendChild(liEl);
+  }
+}
+
+// eventhandler();
+function handleClick(event) {
+  var imgClicked = event.target.alt;
+  var clickedStuff = event.target;
+  console.log(clickedStuff);
+  numberOfClicks++;
+
+  for (var i = 0; i < imgArray.length; i++) {
+    if (imgClicked === imgArray[i].name) {
       imgArray[i].clicked++;
     }
+
+    renderImages();
   }
-  renderImages();  
-  console.log('string', numberOfClicks);
   if (numberOfClicks === clicksAllowed) {
-    imgElOne.removeEventListener('click', eventHandler);
-    imgElTwo.removeEventListener('click', eventHandler);
-    imgElThree.removeEventListener('click', eventHandler);
-  };
+    container.removeEventListener('click', handleClick);
+    renderChart();
+    renderList();
 }
+}
+container.addEventListener('click', handleClick);
+
+
+// lets create our "images"
+new Picture('R2D2-bag', './img/bag.jpg');
+new Picture('banana-slicer', './img/banana.jpg');
+new Picture('hold-your-tablet-in-the-toliet', './img/bathroom.jpg');
+new Picture('boots', './img/boots.jpg');
+new Picture('breakfast-maker-machine', './img/breakfast.jpg');
+new Picture('meatball-gum-bubblegum', './img/bubblegum.jpg');
+new Picture('cthulhu', './img/cthulhu.jpg');
+new Picture('chair', './img/chair.jpg');
+new Picture('dog-duck', './img/dog-duck.jpg');
+new Picture('dragon-meat', './img/dragon.jpg');
+new Picture('pen', './img/pen.jpg');
+new Picture('pet-sweeper', './img/pet-sweep.jpg');
+new Picture('scissors', './img/scissors.jpg');
+new Picture('shark-sleeping-bag', './img/shark.jpg');
+new Picture('baby-sweeper', './img/sweep.png');
+new Picture('tauntaun-sleeping-bag', './img/tauntaun.jpg');
+new Picture('unicorn-meat', './img/unicorn.jpg');
+new Picture('tentacle-usb', './img/usb.gif');
+new Picture('water-can', './img/water-can.jpg');
+new Picture('wine-glass', './img/wine-glass.jpg');
+
+
+// render images to DOM
 renderImages();
 
+// eventlistener
+container.addEventListener('click', handleClick);
 
-imgElOne.addEventListener('click', eventHandler);
-imgElTwo.addEventListener('click', eventHandler);
-imgElThree.addEventListener('click', eventHandler);
