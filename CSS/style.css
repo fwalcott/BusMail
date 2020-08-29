@@ -1,12 +1,18 @@
-* {
-  box-sizing: border-box;
-}
 
-body {
-  background-color: skyblue;
+canvas {
+  width: 1000px;
 }
 
 img {
   height: 300px; 
   width: 300px;
+} 
+
+#list {
+  margin: 10px; 
+  padding: 15px;
+  text-align: center; 
+  color: blue;
+  font-size: 24px; 
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
